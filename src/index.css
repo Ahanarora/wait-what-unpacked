@@ -96,6 +96,11 @@
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground font-serif;
+  }
+  
+  /* Text selection for highlight feature */
+  ::selection {
+    @apply bg-blue-100;
   }
 }

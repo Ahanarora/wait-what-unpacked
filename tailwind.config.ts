@@ -18,6 +18,11 @@ export default {
 			}
 		},
 		extend: {
+			fontFamily: {
+				'playfair': ['Playfair Display', 'serif'],
+				'sourceSerif': ['Source Serif 4', 'serif'],
+				'serif': ['Source Serif 4', 'Playfair Display', 'serif'],
+			},
 			colors: {
 				border: 'hsl(var(--border))',
 				input: 'hsl(var(--input))',
@@ -61,7 +66,12 @@ export default {
 					'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
-				}
+				},
+				category: {
+					politics: "#2563EB",
+					business: "#059669",
+					science: "#D97706",
+				},
 			},
 			borderRadius: {
 				lg: 'var(--radius)',
