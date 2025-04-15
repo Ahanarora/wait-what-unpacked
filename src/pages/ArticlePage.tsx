@@ -11,6 +11,7 @@ import ResponseDisplay from '@/components/ResponseDisplay';
 import SuggestedQuestions from '@/components/SuggestedQuestions';
 import TextHighlight from '@/components/TextHighlight';
 import SessionHistory from '@/components/SessionHistory';
+import { v4 as uuidv4 } from 'uuid';
 
 const ArticlePage = () => {
   const { id } = useParams<{ id: string }>();
@@ -28,7 +29,7 @@ const ArticlePage = () => {
     }
   }, [id]);
 
-  const handleAskQuestion = async (question: string, highlightedText?: string) => {
+  const handleAskQuestion = async (question: string, highlightedText?: string, parentSessionId?: string) => {
     if (!article) return;
     
     setIsLoading(true);
@@ -41,18 +42,25 @@ const ArticlePage = () => {
       const answer = await askQuestion(question, context);
       setResponse(answer);
       
+      // Generate a unique ID for this session
+      const sessionId = uuidv4();
+      
       // Save session
       const newSession: SessionItem = {
+        id: sessionId,
         articleId: article.id,
         articleTitle: article.title,
         question,
         answer,
         timestamp: Date.now(),
-        highlightedText
+        highlightedText,
+        parentId: parentSessionId,
+        isFollowUp: !!parentSessionId
       };
       
       saveSession(newSession);
       setSessions(prev => [newSession, ...prev]);
+      setCurrentSession(newSession);
     } catch (error) {
       console.error('Error asking question:', error);
       setResponse('Sorry, there was an error processing your question. Please try again.');
@@ -68,6 +76,14 @@ const ArticlePage = () => {
   const handleSelectSession = (session: SessionItem) => {
     setCurrentSession(session);
     setResponse(session.answer);
+  };
+
+  const handleFollowUpQuestion = (question: string) => {
+    if (currentSession) {
+      handleAskQuestion(question, undefined, currentSession.id);
+    } else {
+      handleAskQuestion(question);
+    }
   };
 
   const getCategoryColorClass = (category: string) => {
@@ -152,7 +168,7 @@ const ArticlePage = () => {
               
               {/* Question Input */}
               <QuestionInput 
-                onAskQuestion={(q) => handleAskQuestion(q)}
+                onAskQuestion={(q) => currentSession ? handleFollowUpQuestion(q) : handleAskQuestion(q)}
                 isLoading={isLoading} 
               />
               
@@ -170,12 +186,17 @@ const ArticlePage = () => {
                       "{currentSession.highlightedText}"
                     </div>
                   )}
-                  <div>Asked at {new Date(currentSession.timestamp).toLocaleString()}</div>
+                  <div className="flex justify-between items-center">
+                    <div>Asked at {new Date(currentSession.timestamp).toLocaleString()}</div>
+                    {currentSession.isFollowUp && (
+                      <div className="text-xs bg-gray-100 px-2 py-1 rounded">Follow-up</div>
+                    )}
+                  </div>
                 </div>
               )}
               
               {/* Suggested Questions */}
-              <SuggestedQuestions onSelectQuestion={(q) => handleAskQuestion(q)} />
+              <SuggestedQuestions onSelectQuestion={handleFollowUpQuestion} />
             </div>
           </div>
         </div>

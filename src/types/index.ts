@@ -26,4 +26,8 @@ export type SessionItem = {
   answer: string;
   timestamp: number;
   highlightedText?: string;
+  parentId?: string; // ID of the parent question (if it's a follow-up)
+  id: string; // Unique ID for this question
+  isFollowUp?: boolean; // Whether this is a follow-up to another question
 };
+

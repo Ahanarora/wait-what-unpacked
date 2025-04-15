@@ -16,7 +16,19 @@ export const saveSession = (session: SessionItem): void => {
 export const getSessions = (): SessionItem[] => {
   try {
     const sessions = localStorage.getItem(STORAGE_KEY);
-    return sessions ? JSON.parse(sessions) : [];
+    if (!sessions) return [];
+    
+    // Parse sessions and ensure they all have IDs
+    const parsedSessions: SessionItem[] = JSON.parse(sessions);
+    return parsedSessions.map(session => {
+      if (!session.id) {
+        return {
+          ...session,
+          id: `q-${session.timestamp}`
+        };
+      }
+      return session;
+    });
   } catch (error) {
     console.error('Error retrieving sessions from localStorage:', error);
     return [];
