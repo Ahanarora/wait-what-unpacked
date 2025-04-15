@@ -8,6 +8,7 @@ export type Article = {
   category: Category;
   date: string;
   author: string;
+  imageUrl?: string;
 };
 
 export type Question = {
@@ -46,3 +47,4 @@ export type Theme = {
   category: Category;
   events: ThemeEvent[];
 };
+

@@ -6,6 +6,9 @@ import Header from '@/components/Header';
 import ArticleCard from '@/components/ArticleCard';
 import CategoryFilter from '@/components/CategoryFilter';
 import TimeFilter from '@/components/TimeFilter';
+import { Button } from '@/components/ui/button';
+import { Link } from 'react-router-dom';
+import { GalleryHorizontal } from 'lucide-react';
 
 type TimeRange = 'daily' | 'weekly' | 'monthly';
 
@@ -27,10 +30,18 @@ const HomePage = () => {
       <Header />
       
       <main className="container mx-auto px-4 py-8">
-        <TimeFilter 
-          activeTimeRange={activeTimeRange} 
-          onSelectTimeRange={handleTimeRangeSelect} 
-        />
+        <div className="flex justify-between items-center mb-6">
+          <TimeFilter 
+            activeTimeRange={activeTimeRange} 
+            onSelectTimeRange={handleTimeRangeSelect} 
+          />
+          <Button asChild variant="outline">
+            <Link to="/themes" className="flex items-center gap-2">
+              <GalleryHorizontal className="h-4 w-4" />
+              View Themes
+            </Link>
+          </Button>
+        </div>
         
         <CategoryFilter 
           activeCategory={activeCategory} 

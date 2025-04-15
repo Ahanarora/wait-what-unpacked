@@ -21,6 +21,13 @@ const ArticleCard: React.FC<ArticleCardProps> = ({ article }) => {
       <div 
         className={`bg-white rounded-md shadow-sm hover:shadow-md transition-shadow duration-200 overflow-hidden h-full border-l-4 flex flex-col ${categoryColorClasses[article.category]}`}
       >
+        <div className="relative w-full h-48">
+          <img
+            src={article.imageUrl || "https://images.unsplash.com/photo-1488590528505-98d2b5aba04b"}
+            alt={article.title}
+            className="w-full h-full object-cover"
+          />
+        </div>
         <div className="p-5 flex flex-col flex-grow">
           <div 
             className={`mb-2 text-sm uppercase font-medium tracking-wider ${categoryColorClasses[article.category]}`}

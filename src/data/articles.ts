@@ -63,8 +63,39 @@ export const articles: Article[] = [
     snippet: "New comprehensive bill introduces sweeping changes to how industries are regulated, with far-reaching implications for consumers and businesses alike.",
     content: generateDummyContent('politics'),
     category: 'politics',
+    date: "2025-04-15", // Today's date
+    author: "Eleanor Richards",
+    imageUrl: "https://images.unsplash.com/photo-1485827404703-89b55fcc595e"
+  },
+  {
+    id: "politics-2",
+    title: "International Summit Yields Unexpected Alliance",
+    snippet: "Previously adversarial nations announce cooperative framework on climate initiatives, surprising diplomatic observers and potentially altering global power dynamics.",
+    content: generateDummyContent('politics'),
+    category: 'politics',
+    date: "2025-04-15", // Today's date
+    author: "Thomas Zerinki",
+    imageUrl: "https://images.unsplash.com/photo-1605810230434-7631ac76ec81"
+  },
+  {
+    id: "business-1",
+    title: "Tech Giant Unveils Revolutionary AI Platform",
+    snippet: "New artificial intelligence system promises to democratize advanced computing capabilities, potentially disrupting multiple industry sectors.",
+    content: generateDummyContent('business'),
+    category: 'business',
+    date: "2025-04-15", // Today's date
+    author: "Jonathan Lee",
+    imageUrl: "https://images.unsplash.com/photo-1518770660439-4636190af475"
+  },
+  {
+    id: "politics-1",
+    title: "Landmark Legislation Reshapes Regulatory Landscape",
+    snippet: "New comprehensive bill introduces sweeping changes to how industries are regulated, with far-reaching implications for consumers and businesses alike.",
+    content: generateDummyContent('politics'),
+    category: 'politics',
     date: "2025-04-10",
-    author: "Eleanor Richards"
+    author: "Eleanor Richards",
+    imageUrl: "https://images.unsplash.com/photo-1485827404703-89b55fcc595e"
   },
   {
     id: "politics-2",
@@ -73,7 +104,8 @@ export const articles: Article[] = [
     content: generateDummyContent('politics'),
     category: 'politics',
     date: "2025-04-08",
-    author: "Thomas Zerinki"
+    author: "Thomas Zerinki",
+    imageUrl: "https://images.unsplash.com/photo-1605810230434-7631ac76ec81"
   },
   {
     id: "politics-3",
@@ -83,15 +115,6 @@ export const articles: Article[] = [
     category: 'politics',
     date: "2025-04-05",
     author: "Maria Gonzalez"
-  },
-  {
-    id: "business-1",
-    title: "Tech Giant Unveils Revolutionary AI Platform",
-    snippet: "New artificial intelligence system promises to democratize advanced computing capabilities, potentially disrupting multiple industry sectors.",
-    content: generateDummyContent('business'),
-    category: 'business',
-    date: "2025-04-12",
-    author: "Jonathan Lee"
   },
   {
     id: "business-2",
