@@ -1,4 +1,3 @@
-
 export type Category = 'politics' | 'business' | 'science';
 
 export type Article = {
@@ -31,3 +30,19 @@ export type SessionItem = {
   isFollowUp?: boolean; // Whether this is a follow-up to another question
 };
 
+export type ThemeEvent = {
+  id: string;
+  date: string;
+  title: string;
+  description: string;
+  articleId?: string; // Optional link to full article
+  imageUrl: string;
+};
+
+export type Theme = {
+  id: string;
+  title: string;
+  description: string;
+  category: Category;
+  events: ThemeEvent[];
+};
