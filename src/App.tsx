@@ -9,38 +9,40 @@ import NotFound from "./pages/NotFound";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import ThemesPage from "./pages/ThemesPage";
 
-// Create a new QueryClient instance
-const queryClient = new QueryClient();
-
-const App = () => (
-  <QueryClientProvider client={queryClient}>
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={
-          <TooltipProvider>
-            <HomePage />
-          </TooltipProvider>
-        } />
-        <Route path="/themes" element={
-          <TooltipProvider>
-            <ThemesPage />
-          </TooltipProvider>
-        } />
-        <Route path="/article/:id" element={
-          <TooltipProvider>
-            <ArticlePage />
-          </TooltipProvider>
-        } />
-        <Route path="*" element={
-          <TooltipProvider>
-            <NotFound />
-          </TooltipProvider>
-        } />
-      </Routes>
-      <Toaster />
-      <Sonner />
-    </BrowserRouter>
-  </QueryClientProvider>
-);
+const App = () => {
+  // Create the client inside the component
+  const queryClient = new QueryClient();
+  
+  return (
+    <QueryClientProvider client={queryClient}>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={
+            <TooltipProvider>
+              <HomePage />
+            </TooltipProvider>
+          } />
+          <Route path="/themes" element={
+            <TooltipProvider>
+              <ThemesPage />
+            </TooltipProvider>
+          } />
+          <Route path="/article/:id" element={
+            <TooltipProvider>
+              <ArticlePage />
+            </TooltipProvider>
+          } />
+          <Route path="*" element={
+            <TooltipProvider>
+              <NotFound />
+            </TooltipProvider>
+          } />
+        </Routes>
+        <Toaster />
+        <Sonner />
+      </BrowserRouter>
+    </QueryClientProvider>
+  );
+};
 
 export default App;
