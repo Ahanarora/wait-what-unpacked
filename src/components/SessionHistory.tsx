@@ -1,12 +1,7 @@
 
 import { useState, useMemo } from 'react';
 import { SessionItem } from '@/types';
-import { ChevronDown, ChevronRight, Circle, MessageSquare } from 'lucide-react';
-import {
-  Collapsible,
-  CollapsibleContent,
-  CollapsibleTrigger,
-} from '@/components/ui/collapsible';
+import { Circle, MessageSquare } from 'lucide-react';
 import {
   Popover,
   PopoverContent,
@@ -30,10 +25,6 @@ const SessionHistory: React.FC<SessionHistoryProps> = ({
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [showTreeView, setShowTreeView] = useState(false);
-
-  if (sessions.length === 0) {
-    return null;
-  }
 
   // Process sessions to create tree structure
   const buildQuestionTree = useMemo(() => {
@@ -91,6 +82,10 @@ const SessionHistory: React.FC<SessionHistoryProps> = ({
     sortNodes(rootNodes);
     return rootNodes;
   }, [sessions]);
+
+  if (sessions.length === 0) {
+    return null;
+  }
 
   // Group sessions by article for the list view
   const groupedSessions: Record<string, SessionItem[]> = {};
