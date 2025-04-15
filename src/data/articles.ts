@@ -1,4 +1,3 @@
-
 import { Article, Category } from '@/types';
 
 const generateDummyContent = (category: Category): string => {
@@ -141,11 +140,28 @@ export const articles: Article[] = [
   }
 ];
 
+const isWithinTimeRange = (articleDate: string, range: 'daily' | 'weekly' | 'monthly'): boolean => {
+  const articleTime = new Date(articleDate).getTime();
+  const now = new Date().getTime();
+  const oneDay = 24 * 60 * 60 * 1000;
+  
+  switch(range) {
+    case 'daily':
+      return (now - articleTime) <= oneDay;
+    case 'weekly':
+      return (now - articleTime) <= 7 * oneDay;
+    case 'monthly':
+      return (now - articleTime) <= 30 * oneDay;
+    default:
+      return true;
+  }
+};
+
 export const getArticleById = (id: string): Article | undefined => {
   return articles.find(article => article.id === id);
 };
 
-export const getArticlesByCategory = (category: Category | 'all'): Article[] => {
-  if (category === 'all') return articles;
-  return articles.filter(article => article.category === category);
+export const getArticlesByCategory = (category: Category | 'all', timeRange: 'daily' | 'weekly' | 'monthly' = 'daily'): Article[] => {
+  const filteredByCategory = category === 'all' ? articles : articles.filter(article => article.category === category);
+  return filteredByCategory.filter(article => isWithinTimeRange(article.date, timeRange));
 };

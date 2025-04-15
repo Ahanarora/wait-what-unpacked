@@ -5,13 +5,21 @@ import { getArticlesByCategory } from '@/data/articles';
 import Header from '@/components/Header';
 import ArticleCard from '@/components/ArticleCard';
 import CategoryFilter from '@/components/CategoryFilter';
+import TimeFilter from '@/components/TimeFilter';
+
+type TimeRange = 'daily' | 'weekly' | 'monthly';
 
 const HomePage = () => {
   const [activeCategory, setActiveCategory] = useState<Category | 'all'>('all');
-  const articles = getArticlesByCategory(activeCategory);
+  const [activeTimeRange, setActiveTimeRange] = useState<TimeRange>('daily');
+  const articles = getArticlesByCategory(activeCategory, activeTimeRange);
 
   const handleCategorySelect = (category: Category | 'all') => {
     setActiveCategory(category);
+  };
+
+  const handleTimeRangeSelect = (range: TimeRange) => {
+    setActiveTimeRange(range);
   };
 
   return (
@@ -19,6 +27,11 @@ const HomePage = () => {
       <Header />
       
       <main className="container mx-auto px-4 py-8">
+        <TimeFilter 
+          activeTimeRange={activeTimeRange} 
+          onSelectTimeRange={handleTimeRangeSelect} 
+        />
+        
         <CategoryFilter 
           activeCategory={activeCategory} 
           onSelectCategory={handleCategorySelect} 
