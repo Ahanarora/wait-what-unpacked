@@ -8,7 +8,7 @@ import CategoryFilter from '@/components/CategoryFilter';
 import TimeFilter from '@/components/TimeFilter';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
-import { GalleryHorizontal } from 'lucide-react';
+import { GalleryHorizontal, ArrowRight } from 'lucide-react';
 
 type TimeRange = 'daily' | 'weekly' | 'monthly';
 
@@ -17,42 +17,40 @@ const HomePage = () => {
   const [activeTimeRange, setActiveTimeRange] = useState<TimeRange>('daily');
   const articles = getArticlesByCategory(activeCategory, activeTimeRange);
 
-  const handleCategorySelect = (category: Category | 'all') => {
-    setActiveCategory(category);
-  };
-
-  const handleTimeRangeSelect = (range: TimeRange) => {
-    setActiveTimeRange(range);
-  };
-
   return (
     <div className="min-h-screen bg-gray-50">
       <Header />
       
       <main className="container mx-auto px-4 py-8">
         <div className="flex justify-between items-center mb-6">
-          <TimeFilter 
-            activeTimeRange={activeTimeRange} 
-            onSelectTimeRange={handleTimeRangeSelect} 
-          />
+          <div className="flex-1">
+            <TimeFilter 
+              activeTimeRange={activeTimeRange} 
+              onSelectTimeRange={setActiveTimeRange}
+            />
+            {activeTimeRange === 'weekly' && (
+              <div className="flex items-center gap-2 text-sm text-blue-600 mt-2">
+                <ArrowRight className="h-4 w-4" />
+                <span className="italic">recommended for us common folk</span>
+              </div>
+            )}
+          </div>
           <Button asChild variant="outline">
             <Link to="/themes" className="flex items-center gap-2">
               <GalleryHorizontal className="h-4 w-4" />
-              View Themes
+              Track Stories Chronologically
             </Link>
           </Button>
         </div>
         
         <CategoryFilter 
           activeCategory={activeCategory} 
-          onSelectCategory={handleCategorySelect} 
+          onSelectCategory={setActiveCategory}
         />
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {articles.map((article) => (
-            <div key={article.id}>
-              <ArticleCard article={article} />
-            </div>
+            <ArticleCard key={article.id} article={article} />
           ))}
         </div>
       </main>

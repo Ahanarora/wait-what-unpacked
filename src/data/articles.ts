@@ -1,6 +1,6 @@
 import { Article, Category } from '@/types';
 
-const generateDummyContent = (category: Category): string => {
+const generateArticleContent = (category: Category): string => {
   const paragraphs = [
     "In a surprising turn of events, new research has emerged challenging conventional wisdom about how we understand the world around us. This revelation comes at a critical time when society is grappling with unprecedented changes on multiple fronts.",
     
@@ -53,138 +53,100 @@ const generateDummyContent = (category: Category): string => {
   // Randomize paragraph order (except first and last)
   const middleParagraphs = paragraphs.slice(1, -1);
   const shuffled = middleParagraphs.sort(() => Math.random() - 0.5);
-  return [paragraphs[0], ...shuffled, paragraphs[paragraphs.length - 1]].join("\n\n");
+  
+  const selectedParagraphs = [paragraphs[0], ...shuffled.slice(0, 2), paragraphs[paragraphs.length - 1]];
+  return selectedParagraphs.join("\n\n");
 };
 
-export const articles: Article[] = [
+// Separate article sets for different time ranges
+export const dailyArticles: Article[] = [
   {
     id: "politics-1",
-    title: "Landmark Legislation Reshapes Regulatory Landscape",
-    snippet: "New comprehensive bill introduces sweeping changes to how industries are regulated, with far-reaching implications for consumers and businesses alike.",
-    content: generateDummyContent('politics'),
+    title: "Breaking: New Climate Agreement Reached",
+    snippet: "World leaders announce groundbreaking climate accord with immediate action plans.",
+    content: generateArticleContent('politics'),
     category: 'politics',
-    date: "2025-04-15", // Today's date
+    date: "2025-04-15",
     author: "Eleanor Richards",
-    imageUrl: "https://images.unsplash.com/photo-1485827404703-89b55fcc595e"
-  },
-  {
-    id: "politics-2",
-    title: "International Summit Yields Unexpected Alliance",
-    snippet: "Previously adversarial nations announce cooperative framework on climate initiatives, surprising diplomatic observers and potentially altering global power dynamics.",
-    content: generateDummyContent('politics'),
-    category: 'politics',
-    date: "2025-04-15", // Today's date
-    author: "Thomas Zerinki",
     imageUrl: "https://images.unsplash.com/photo-1605810230434-7631ac76ec81"
-  },
-  {
-    id: "business-1",
-    title: "Tech Giant Unveils Revolutionary AI Platform",
-    snippet: "New artificial intelligence system promises to democratize advanced computing capabilities, potentially disrupting multiple industry sectors.",
-    content: generateDummyContent('business'),
-    category: 'business',
-    date: "2025-04-15", // Today's date
-    author: "Jonathan Lee",
-    imageUrl: "https://images.unsplash.com/photo-1518770660439-4636190af475"
-  },
-  {
-    id: "politics-1",
-    title: "Landmark Legislation Reshapes Regulatory Landscape",
-    snippet: "New comprehensive bill introduces sweeping changes to how industries are regulated, with far-reaching implications for consumers and businesses alike.",
-    content: generateDummyContent('politics'),
-    category: 'politics',
-    date: "2025-04-10",
-    author: "Eleanor Richards",
-    imageUrl: "https://images.unsplash.com/photo-1485827404703-89b55fcc595e"
-  },
-  {
-    id: "politics-2",
-    title: "International Summit Yields Unexpected Alliance",
-    snippet: "Previously adversarial nations announce cooperative framework on climate initiatives, surprising diplomatic observers and potentially altering global power dynamics.",
-    content: generateDummyContent('politics'),
-    category: 'politics',
-    date: "2025-04-08",
-    author: "Thomas Zerinki",
-    imageUrl: "https://images.unsplash.com/photo-1605810230434-7631ac76ec81"
-  },
-  {
-    id: "politics-3",
-    title: "Election Reform Bill Faces Uncertain Future",
-    snippet: "Bipartisan support wavers as key provisions come under scrutiny from advocacy groups on both sides of the political spectrum.",
-    content: generateDummyContent('politics'),
-    category: 'politics',
-    date: "2025-04-05",
-    author: "Maria Gonzalez"
-  },
-  {
-    id: "business-2",
-    title: "Market Volatility Reaches Two-Year High",
-    snippet: "Investors scramble to adjust portfolios as economic indicators send mixed signals about the direction of the global economy.",
-    content: generateDummyContent('business'),
-    category: 'business',
-    date: "2025-04-09",
-    author: "Sophia Chen"
-  },
-  {
-    id: "business-3",
-    title: "Sustainable Investment Funds See Record Inflows",
-    snippet: "ESG-focused financial products attract unprecedented capital as investors increasingly prioritize environmental and social governance factors.",
-    content: generateDummyContent('business'),
-    category: 'business',
-    date: "2025-04-07",
-    author: "Marcus Williams"
   },
   {
     id: "science-1",
-    title: "Breakthrough in Quantum Computing Achieves New Milestone",
-    snippet: "Researchers demonstrate quantum advantage in solving previously intractable problems, bringing practical applications closer to reality.",
-    content: generateDummyContent('science'),
+    title: "Quantum Computing Breakthrough",
+    snippet: "Scientists achieve new milestone in quantum entanglement.",
+    content: generateArticleContent('science'),
     category: 'science',
-    date: "2025-04-13",
-    author: "Dr. Aisha Patel"
+    date: "2025-04-15",
+    author: "Dr. Aisha Patel",
+    imageUrl: "https://images.unsplash.com/photo-1518770660439-4636190af475"
   },
   {
-    id: "science-2",
-    title: "Novel Material Could Revolutionize Energy Storage",
-    snippet: "Laboratory tests show promising results for highly efficient, environmentally friendly battery technology with potential for rapid scaling.",
-    content: generateDummyContent('science'),
-    category: 'science',
-    date: "2025-04-11",
-    author: "Dr. Robert Kim"
-  },
-  {
-    id: "science-3",
-    title: "Climate Model Updates Reveal Accelerated Timeline",
-    snippet: "Latest data analysis suggests environmental tipping points may be reached sooner than previously predicted, emphasizing urgency of mitigation efforts.",
-    content: generateDummyContent('science'),
-    category: 'science',
-    date: "2025-04-06",
-    author: "Dr. Helena Schmidt"
+    id: "business-1",
+    title: "Tech Merger Creates Industry Giant",
+    snippet: "Historic merger reshapes technology landscape with $50B deal.",
+    content: generateArticleContent('business'),
+    category: 'business',
+    date: "2025-04-15",
+    author: "Marcus Williams",
+    imageUrl: "https://images.unsplash.com/photo-1460925895917-afdab827c52f"
   }
 ];
 
-const isWithinTimeRange = (articleDate: string, range: 'daily' | 'weekly' | 'monthly'): boolean => {
-  const articleTime = new Date(articleDate).getTime();
-  const now = new Date().getTime();
-  const oneDay = 24 * 60 * 60 * 1000;
-  
-  switch(range) {
-    case 'daily':
-      return (now - articleTime) <= oneDay;
-    case 'weekly':
-      return (now - articleTime) <= 7 * oneDay;
-    case 'monthly':
-      return (now - articleTime) <= 30 * oneDay;
-    default:
-      return true;
+export const weeklyArticles: Article[] = [
+  {
+    id: "politics-weekly-1",
+    title: "Global Security Framework Overhaul",
+    snippet: "Major nations agree on new cybersecurity cooperation protocol.",
+    content: generateArticleContent('politics'),
+    category: 'politics',
+    date: "2025-04-12",
+    author: "Thomas Zerinki",
+    imageUrl: "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5"
+  },
+  {
+    id: "science-weekly-1",
+    title: "Mars Colony Plans Accelerated",
+    snippet: "Space agencies announce joint venture for permanent Mars settlement.",
+    content: generateArticleContent('science'),
+    category: 'science',
+    date: "2025-04-10",
+    author: "Dr. Helena Schmidt",
+    imageUrl: "https://images.unsplash.com/photo-1485827404703-89b55fcc595e"
   }
+];
+
+export const monthlyArticles: Article[] = [
+  {
+    id: "politics-monthly-1",
+    title: "Democracy Index 2025 Released",
+    snippet: "Annual report shows significant shifts in global democratic standings.",
+    content: generateArticleContent('politics'),
+    category: 'politics',
+    date: "2025-04-01",
+    author: "Maria Gonzalez",
+    imageUrl: "https://images.unsplash.com/photo-1487958449943-2429e8be8625"
+  }
+];
+
+export const getArticlesByCategory = (category: Category | 'all', timeRange: 'daily' | 'weekly' | 'monthly'): Article[] => {
+  let articles;
+  switch(timeRange) {
+    case 'daily':
+      articles = dailyArticles;
+      break;
+    case 'weekly':
+      articles = weeklyArticles;
+      break;
+    case 'monthly':
+      articles = monthlyArticles;
+      break;
+    default:
+      articles = dailyArticles;
+  }
+  
+  return category === 'all' ? articles : articles.filter(article => article.category === category);
 };
 
 export const getArticleById = (id: string): Article | undefined => {
-  return articles.find(article => article.id === id);
-};
-
-export const getArticlesByCategory = (category: Category | 'all', timeRange: 'daily' | 'weekly' | 'monthly' = 'daily'): Article[] => {
-  const filteredByCategory = category === 'all' ? articles : articles.filter(article => article.category === category);
-  return filteredByCategory.filter(article => isWithinTimeRange(article.date, timeRange));
+  return [...dailyArticles, ...weeklyArticles, ...monthlyArticles].find(article => article.id === id);
 };
